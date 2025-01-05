@@ -1,0 +1,11 @@
+.incorrect-guesses-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.incorrect-guesses-text {
+    color: red;
+}
