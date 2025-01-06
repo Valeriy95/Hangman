@@ -1,21 +1,25 @@
-import { createElement, useState } from 'react';
+import { useState } from 'react';
 import '../styles/quizPart.scss';
 import SecretWord from './SecretWord';
 import HintSecretWord from './HintSecretWord';
 import IncorrectGuessesCounter from './IncorrectGuessesCounter';
 import VirtualKeyboard from './VirtualKeyboard';
 import React from 'react';
+import ModalWindow from './ModalWindow';
 
 interface QuizPartProps {
-    wordLength: number; // Тип пропса
+    wordLength: number;
     randomNum: number;
     secretWordArr: string[];
 }
 
 const QuizPart: React.FC<QuizPartProps> = ({ wordLength, randomNum, secretWordArr }) => {
+
   const [click, setClick] = useState(0);
   const [secretWord, setSecretWord] = useState(secretWordArr[randomNum]);
   const [hintSecretWord, setHintSecretWord] = useState<string[]>([]);
+  const [arrImgHangman, setArrImgHangman] = useState<HTMLElement[]>([]);
+  const [isWin, setIsWin] = useState<boolean>(false);
 
   const alpabetEn = [
     'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
@@ -23,65 +27,60 @@ const QuizPart: React.FC<QuizPartProps> = ({ wordLength, randomNum, secretWordAr
     'z', 'x', 'c', 'v', 'b', 'n', 'm',
   ];
 
-  const imgHead = document.querySelector('.img-head') as HTMLElement;
-  const imgBody = document.querySelector('.img-body') as HTMLElement;
-  const imgHandOne = document.querySelector('.img-hand-one') as HTMLElement;
-  const imgHandTwo = document.querySelector('.img-hand-two') as HTMLElement;
-  const imgLegOne = document.querySelector('.img-leg-one') as HTMLElement;
-  const imgLegTwo = document.querySelector('.img-leg-two') as HTMLElement;
+  React.useEffect(() => {
+    const imgHead = document.querySelector('.img-head') as HTMLElement;
+    const imgBody = document.querySelector('.img-body') as HTMLElement;
+    const imgHandOne = document.querySelector('.img-hand-one') as HTMLElement;
+    const imgHandTwo = document.querySelector('.img-hand-two') as HTMLElement;
+    const imgLegOne = document.querySelector('.img-leg-one') as HTMLElement;
+    const imgLegTwo = document.querySelector('.img-leg-two') as HTMLElement;
+  
+    const newArrImgHangman: HTMLElement[] = [];
+    if (imgHead) newArrImgHangman.push(imgHead);
+    if (imgBody) newArrImgHangman.push(imgBody);
+    if (imgHandOne) newArrImgHangman.push(imgHandOne);
+    if (imgHandTwo) newArrImgHangman.push(imgHandTwo);
+    if (imgLegOne) newArrImgHangman.push(imgLegOne);
+    if (imgLegTwo) newArrImgHangman.push(imgLegTwo);
+  
+    setArrImgHangman(newArrImgHangman);
+  }, []);
 
-  const arrImgHangman: HTMLElement[] = [];
-  if (imgHead) arrImgHangman.push(imgHead);
-  if (imgBody) arrImgHangman.push(imgBody);
-  if (imgHandOne) arrImgHangman.push(imgHandOne);
-  if (imgHandTwo) arrImgHangman.push(imgHandTwo);
-  if (imgLegOne) arrImgHangman.push(imgLegOne);
-  if (imgLegTwo) arrImgHangman.push(imgLegTwo);
-
-  console.log(arrImgHangman)
-
-
-  // Инициализация массива с "_"
   React.useEffect(() => {
     setHintSecretWord(Array(wordLength).fill('_'));
-    console.log(hintSecretWord);
   }, [wordLength]);
 
   React.useEffect(() => {
-    console.log("Updated hintSecretWord:", hintSecretWord);
-    console.log(hintSecretWord);
   }, [hintSecretWord]);
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (click >= 6) return;
       e.preventDefault();
-      console.log(e.key.toLowerCase());
 
-      // Проверяем, является ли нажатая клавиша буквой
       if (!alpabetEn.includes(e.key.toLowerCase())) return;
 
       const arrVirtualKey = document.querySelectorAll('.virtual-key');
       let isCorrectGuess = false;
 
-      // Проверяем все вхождения буквы в слове
       secretWord.split('').forEach((char, index) => {
         if (e.key.toLowerCase() === char.toLowerCase()) {
-          console.log('Correct guess!');
 
-          // Обновляем все совпадения буквы в массиве
           setHintSecretWord((prevHint) => {
             const newHint = [...prevHint];
             newHint[index] = char.toLowerCase();
+            if (!newHint.includes('_')) {
+              setClick(6);
+              setIsWin(true);
+            }
             return newHint;
           });
 
-          // Отмечаем клавишу как использованную
           for (let y = 0; y < arrVirtualKey.length; y++) {
             const element = arrVirtualKey[y] as HTMLElement;
             if (element.dataset.key === e.code && element.dataset.click !== 'yes') {
-              console.log('Marking key as used.');
               element.dataset.click = 'yes';
-              element.style.background = 'red';
+              element.style.background = '#0e9f0e';
             }
           }
           isCorrectGuess = true;
@@ -89,18 +88,22 @@ const QuizPart: React.FC<QuizPartProps> = ({ wordLength, randomNum, secretWordAr
       });
 
       if (!isCorrectGuess) {
-        console.log('Incorrect guess!');
         if (click < 6) {
-          console.log(arrImgHangman[click].style.display = 'block')
+          for (let y = 0; y < arrVirtualKey.length; y++) {
+            const element = arrVirtualKey[y] as HTMLElement;
+            if (element.dataset.key === e.code && element.dataset.click !== 'yes') {
+              element.dataset.click = 'yes';
+              element.style.background = '#ff390f';
+              arrImgHangman[click].style.display = 'block'
+              setClick((prev) => prev + 1);
+            }
+          }
         }
-        setClick((prev) => prev + 1); // Увеличиваем счётчик ошибок
       }
     };
 
-    // Добавляем обработчик события
     document.addEventListener('keydown', handleKeyDown);
 
-    // Удаляем обработчик при размонтировании компонента
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
@@ -108,10 +111,19 @@ const QuizPart: React.FC<QuizPartProps> = ({ wordLength, randomNum, secretWordAr
 
   return (
     <div className='quiz-part-container'>
-      <SecretWord lengthWord={wordLength} hintSecretWord={hintSecretWord}/>
+      <SecretWord hintSecretWord={hintSecretWord}/>
       <HintSecretWord numberHint={randomNum} />
       <IncorrectGuessesCounter click={click} />
-      <VirtualKeyboard click={click} secretWord={secretWord} setClick={setClick} setHintSecretWord={setHintSecretWord}/>
+      {arrImgHangman.length > 0 && (
+      <VirtualKeyboard
+        arrImgHangman={arrImgHangman}
+        secretWord={secretWord}
+        setClick={setClick}
+        setHintSecretWord={setHintSecretWord}
+        setIsWin={setIsWin}
+      />
+    )}
+      <ModalWindow click={click} isWin={isWin} secretWord={secretWord}/>
     </div>
   );
 };

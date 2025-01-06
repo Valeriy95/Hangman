@@ -1,0 +1,48 @@
+.modal-window {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.9;
+}
+
+.modal-window-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-modal-window {
+    color: rgb(255, 255, 255);
+    font-size: 35px;
+}
+
+.restart {
+    margin-top: 35px;
+    background-color:rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid #ffffff;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.restart:hover {
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.5s;
+}
+
+.win {
+    color: #0e9f0e;
+}
+
+.lost {
+    color: #ff390f;
+}

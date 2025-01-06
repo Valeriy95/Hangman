@@ -7,9 +7,7 @@ interface IncorrectGuessesCounterProps {
 
 const IncorrectGuessesCounter: React.FC<IncorrectGuessesCounterProps> = ({ click }) => {
 
-  
     useEffect(() => {
-
     }, [click]);
     
     return (

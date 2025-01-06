@@ -5,6 +5,8 @@
 
 .img-gallows {
     position: absolute;
+    left: 30px;
+    top: 50px;
     width: 353px;
     height: 581px;
     background-image: url('../../assests/img/gallows.png');
@@ -15,7 +17,7 @@
     width: 101px;
     height: 101px;
     position: absolute;
-    left: 252px;
+    left: 282px;
     top: 166px;
     background-image: url('../../assests/img/head.png');
 }
@@ -25,7 +27,7 @@
     width: 5px;
     height: 131px;
     position: absolute;
-    left: 300px;
+    left: 330px;
     top: 266px;
     background-image: url('../../assests/img/body.png');
 }
@@ -35,7 +37,7 @@
     width: 68px;
     height: 81px;
     position: absolute;
-    left: 301px;
+    left: 331px;
     top: 266px;
     background-image: url('../../assests/img/hand-one.png');
 }
@@ -45,7 +47,7 @@
     width: 68px;
     height: 81px;
     position: absolute;
-    left: 237px;
+    left: 266px;
     top: 266px;
     background-image: url('../../assests/img/hand-two.png');
 }
@@ -55,7 +57,7 @@
     width: 68px;
     height: 81px;
     position: absolute;
-    left: 237px;
+    left: 267px;
     top: 394px;
     background-image: url('../../assests/img/leg-one.png');
 }
@@ -65,12 +67,12 @@
     width: 68px;
     height: 81px;
     position: absolute;
-    left: 300px;
+    left: 330px;
     top: 394px;
     background-image: url('../../assests/img/leg-two.png');
 }
 
 .title {
     position: absolute;
-    top: 610px;
+    left: 41%;
 }

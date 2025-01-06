@@ -41,7 +41,7 @@
 .p24,
 .p25,
 .p26 {
-   background-color: #2036ff;
+   background-color: #5e63ba;
    color: #ffffff;
    border-radius: 5px;
    height: 100%;
@@ -53,6 +53,35 @@
    font-weight: 700;
    margin: 0;
    transition: 0.2s;
+}
+
+.p1:hover,
+.p2:hover,
+.p3:hover,
+.p4:hover,
+.p5:hover,
+.p6:hover,
+.p7:hover,
+.p8:hover,
+.p9:hover,
+.p10:hover,
+.p11:hover,
+.p12:hover,
+.p13:hover,
+.p14:hover,
+.p15:hover,
+.p16:hover,
+.p17:hover,
+.p18:hover,
+.p19:hover,
+.p20:hover,
+.p21:hover,
+.p22:hover,
+.p23:hover,
+.p24:hover,
+.p25:hover,
+.p26:hover {
+    cursor: pointer;
 }
 
 .keyboard-container div:nth-child(n + 19) {

@@ -1,9 +1,9 @@
-import React from 'react';
 import '../styles/gallowsPart.scss';
 
-function GallowsPart() {
+const GallowsPart: React.FC = () => {
   return (
     <div className='gallows-part-container'>
+        <h1 className='title'>HANGMAN GAME</h1>
         <div className='img-gallows'></div>
         <div className='img-head'></div>
         <div className='img-body'></div>
@@ -11,7 +11,6 @@ function GallowsPart() {
         <div className='img-hand-two'></div>
         <div className='img-leg-one'></div>
         <div className='img-leg-two'></div>
-        <h1 className='title'>HANGMAN GAME</h1>
     </div>
   );
 }
