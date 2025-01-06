@@ -87,3 +87,12 @@
 .keyboard-container div:nth-child(n + 19) {
     margin-left: 23px;
 }
+
+@media (max-width: 850px) {
+    .keyboard-container{
+        grid-template-columns: repeat(9, 30px);
+        grid-template-rows: repeat(3, 30px);
+        width: 290px;
+        height: 150px;
+    }
+}

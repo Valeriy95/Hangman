@@ -9,3 +9,11 @@
 .incorrect-guesses-text {
     color: #ff390f;
 }
+
+@media (max-width: 850px) and (min-width: 600px) {
+
+    .incorrect-guesses-container {
+        font-size: 20px;
+    }
+
+}

@@ -10,6 +10,8 @@
     width: 353px;
     height: 581px;
     background-image: url('../../assests/img/gallows.png');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .img-head {
@@ -75,4 +77,62 @@
 .title {
     position: absolute;
     left: 41%;
+}
+
+.gallows-part-content {
+    position: absolute;
+}
+
+@media (max-width: 768px) {
+
+    .gallows-part-content {
+        position: absolute;
+        width: 100%;
+        margin-left: 27%;
+        margin-top: 25px;
+    }
+
+    .img-gallows {
+        width: 280px;
+    }
+
+    .img-head {
+        left: 220px;
+    }
+
+    .img-body {
+        left: 267px;
+    }
+
+    .img-hand-one {
+        left: 268px;
+    }
+
+    .img-hand-two {
+        left: 204px;
+    }
+
+    .img-leg-one {
+        left: 205px;
+    }
+
+    .img-leg-two {
+        left: 266px;
+    }
+    
+    .title {
+        left: 34%;
+    }
+
+}
+
+@media (max-width: 530px) {
+
+    .title {
+        font-size: 26px;
+    }
+
+    .gallows-part-content {
+        margin-left: 15%;
+    }
 }
